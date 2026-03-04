@@ -1,0 +1,703 @@
+<html lang="ja"> <head>
+  <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Media Catalog Viewer | Ultimate High-Speed Media & File Organizer for Mac</title>
+  <meta name="description" content="The ultimate file organization solution for macOS. Effortlessly browse and manage massive collections of images, videos, PDFs, and documents in a fluid grid view. Media Catalog Viewer features a revolutionary 10% Snapshot engine that automatically skips black opening frames to show the true content of your videos. Seamlessly sync macOS Finder tags at light speed using deep C-API integration. Fully optimized for Apple Silicon (M1/M2/M3) for maximum performance. Professional-grade file handling with drag-and-drop, Undo (Cmd+Z), and invisible file support. 深いフォルダ階層を直感的なグリッドで一望し、意のままに整理。10%解析エンジン、爆速Finderタグ同期、M1/M2/M3最適化を搭載したプロ仕様のMac専用カタログビューア。画像・動画整理の終着駅。">
+  <meta name="keywords" content="Mac, File Organizer, Media Catalog, Thumbnail, Finder Tags, FFmpeg, Apple Silicon, M1, M2, M3, Productivity, Video Management, Digital Asset Management, DAM, 整理, 爆速, 10%Snapshot, 画像ブラウザ, 動画管理, 効率化, 仕事術, 不可視ファイル, macOS, Finder Sync, QuickLook, High-Speed">
+
+  <meta property="og:title" content="Media Catalog Viewer | Organize with 10% Snapshot Technology">
+  <meta property="og:description" content="Visualizing and organizing massive media files at lightning speed. The professional choice for macOS users.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://your-domain.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+      /* --- 2026 Professional Brand Design --- */
+      :root {
+        --primary: #0071e3;
+        --primary-glow: rgba(0, 113, 227, 0.4);
+        --bg-dark: #0a0a0c;
+        --text-main: #1d1d1f;
+        --text-sub: #424245;
+        --radius-lg: 32px;
+        /* セクション余白の統一用変数 */
+        --section-spacing: 100px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+        background-color: #fff;
+        background-image: radial-gradient(at 0% 0%, rgba(0, 113, 227, 0.05) 0px, transparent 50%),
+                          radial-gradient(at 100% 100%, rgba(175, 82, 222, 0.05) 0px, transparent 50%);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .bg-glow {
+        position: fixed;
+        top: -10%;
+        left: -10%;
+        width: 60%;
+        height: 60%;
+        background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+        filter: blur(120px);
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.6;
+        animation: floatAnimation 20s infinite alternate ease-in-out;
+      }
+
+      .glow-2 {
+        top: auto;
+        left: auto;
+        bottom: -15%;
+        right: -15%;
+        background: radial-gradient(circle, rgba(175, 82, 222, 0.25) 0%, transparent 70%);
+        animation-duration: 10s;
+        animation-delay: -5s;
+      }
+
+      @keyframes floatAnimation {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(30%, 40%) scale(1.1); }
+        100% { transform: translate(-4%, -8%) scale(0.95); }
+      }
+
+      header {
+        padding-top: 100px !important;
+        padding-bottom: 6rem;
+        text-align: center;
+        display: block !important;
+      }
+      .brand-group {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 2rem;
+      }
+      .app-icon {
+        width: 140px;
+        height: 140px;
+        border-radius: 32px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        object-fit: cover;
+      }
+      .brand-content { text-align: left; }
+      .brand-name {
+        font-size: clamp(3.2rem, 8vw, 5.2rem);
+        font-weight: 800;
+        letter-spacing: -4px;
+        margin: 0;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #1d1d1f 40%, var(--primary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .brand-version {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--text-sub);
+        margin-top: 5px;
+      }
+
+      .hero {
+        padding: 20px 0 var(--section-spacing);
+        text-align: center;
+      }
+      .hero h2 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        letter-spacing: -1.5px;
+        line-height: 1.3;
+        word-break: keep-all;
+      }
+      .hero-p {
+        font-size: 1.4rem;
+        color: var(--text-sub);
+        max-width: 900px;
+        margin: 0 auto 4rem;
+        line-height: 1.6;
+        word-break: keep-all;
+      }
+
+      .basic-ops-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        color: var(--text-main);
+      }
+      .basic-ops {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: var(--section-spacing);
+        padding: 2rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .op-item { text-align: left; }
+      .op-item strong {
+        display: block;
+        font-size: 1.1rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+      .op-item p {
+        font-size: 0.95rem;
+        color: var(--text-sub);
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .app-preview {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto 80px;
+        background: transparent !important;
+        border-radius: 24px;
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.22);
+        border: none !important;
+        overflow: hidden;
+      }
+      .app-preview img { width: 100%; display: block; }
+
+      .btn-container {
+        text-align: center;
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+      }
+      
+      .btn-download {
+        display: inline-block !important;
+        /* スマホ対応：PCでは420px、スマホでは100%に追従 */
+        max-width: 420px !important;
+        width: 100% !important;
+        padding: 12px 0 !important;
+        text-align: center;
+        text-decoration: none;
+        background: linear-gradient(180deg, #3a8bfd, #1f5ed6);
+        color: #fff;
+        border-radius: 60px;
+        font-size: 35px !important;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        line-height: 1.05;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+        transition: all 0.15s ease;
+        cursor: pointer;
+      }
+      .btn-download:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(255, 255, 255, 0.35);
+      }
+      .btn-download:active {
+        transform: translateY(3px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25), inset 0 3px 6px rgba(0, 0, 0, 0.25);
+      }
+      .btn-download-sub {
+        display: block;
+        font-size: 20px;
+        opacity: 0.9;
+        font-weight: 500;
+        line-height: 1.1;
+      }
+
+      .innovation-teaser {
+        text-align: center;
+        margin-bottom: 3.5rem;
+        padding: 0 1rem;
+      }
+      .innovation-teaser .teaser-sub {
+        display: block;
+        font-size: 1.2rem;
+        color: var(--text-sub);
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.05em;
+      }
+      .innovation-teaser .teaser-main {
+        display: block;
+        font-size: clamp(1.5rem, 4vw, 2.4rem);
+        font-weight: 800;
+        color: var(--text-main);
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+      }
+
+      .innovation {
+        background: #1d1d1f;
+        color: #fff;
+        border-radius: 40px;
+        padding: 6rem 4rem;
+        margin-bottom: var(--section-spacing);
+        text-align: left;
+        box-shadow: 0 60px 120px rgba(0, 0, 0, 0.4);
+      }
+      .badge-rev {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .innovation h2 {
+        font-size: 3.5rem;
+        margin: 0 0 1.5rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+        line-height: 1.2;
+      }
+      .innovation .detail {
+        font-size: 1.3rem;
+        color: #aaa;
+        border-left: 5px solid var(--primary);
+        padding-left: 30px;
+        line-height: 1.7;
+      }
+      .mode-selection {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      .mode-tag {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .mode-tag.active {
+        border-color: var(--primary);
+        background: rgba(0, 113, 227, 0.2);
+        font-weight: bold;
+      }
+
+      .formats-summary {
+        background: #f9f9fb;
+        border: 1px solid #eee;
+        border-radius: 24px;
+        padding: 3rem;
+        margin-bottom: var(--section-spacing);
+      }
+      .format-group { margin-bottom: 1.5rem; }
+      .format-group-title {
+        font-weight: 800;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        color: var(--text-main);
+        display: block;
+      }
+      .format-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-family: 'SF Mono', monospace;
+        font-size: 0.85rem;
+      }
+      .format-tag {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 4px 10px;
+        border-radius: 6px;
+        color: var(--text-sub);
+      }
+
+      .feature-windows {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 20px;
+      }
+      .window-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: var(--radius-lg);
+        padding: 3.5rem;
+        transition: 0.4s cubic-bezier(0.15, 0.83, 0.66, 1);
+      }
+      .window-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+      }
+      .window-card h3 { font-size: 1.8rem; margin: 0 0 1.2rem; font-weight: 800; }
+      .window-card .icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+      .window-card p { font-size: 1.05rem; color: var(--text-sub); line-height: 1.7; }
+
+      .detail-specs {
+        padding: 20px 0 0 0;
+        border-top: 1px solid #eee;
+        margin-bottom: 0;
+      }
+      .detail-specs h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem; text-align: center; }
+      .spec-item { margin-bottom: 3rem; }
+      .spec-item h4 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--primary); font-weight: 800; }
+      .spec-item p { font-size: 1.1rem; color: var(--text-sub); line-height: 1.8; }
+
+      footer { text-align: center; padding: 6rem 0; color: #999; border-top: 1px solid #eee; }
+
+      /* モバイル最適化（レスポンシブ修正） */
+      @media (max-width: 900px) {
+        :root { --section-spacing: 60px; }
+        header { padding-top: 60px !important; }
+        .brand-group { flex-direction: column; }
+        .brand-name { font-size: 3.5rem; text-align: center; }
+        .hero h2, .hero-p { word-break: normal; overflow-wrap: anywhere; }
+        .basic-ops { grid-template-columns: 1fr; gap: 1.5rem; }
+        .innovation { padding: 3rem 1.5rem; border-radius: 24px; }
+        .innovation h2 { font-size: 2.2rem; letter-spacing: -1px; }
+        .innovation .detail { padding-left: 15px; font-size: 1.1rem; }
+        .mode-selection { grid-template-columns: 1fr; }
+        .btn-container { margin-top: 3rem; margin-bottom: 3rem; }
+        .feature-windows { grid-template-columns: 1fr; }
+        .window-card { padding: 2rem; }
+        .btn-download { font-size: 28px !important; padding: 16px 10px !important; }
+        .btn-download-sub { font-size: 16px; }
+      }
+
+      .disclaimer-area { background: transparent !important; margin-top: 0; }
+      .disclaimer-content { max-width: 900px; margin: 0 auto; font-size: 0.9rem; color: #777; line-height: 1.8; }
+      .disclaimer-content h5 { font-size: 1.1rem; color: var(--text-main); margin: 2.5rem 0 0 !important; line-height: 1.1 !important; font-weight: 800; }
+      .disclaimer-content p { margin-top: 0 !important; margin-bottom: 1.2rem; }
+      .disclaimer-content strong { color: #d63025; }
+
+      /* Google Translate Custom Styling */
+      #google_translate_element { position: absolute; top: 25px; right: 2rem; z-index: 1000; display: block !important; visibility: visible !important; }
+      .goog-te-banner-frame, .goog-te-banner, iframe[id*=":1.container"], iframe[id*=":2.container"], #goog-gt-tt { display: none !important; visibility: hidden !important; }
+      .goog-te-balloon-frame, .goog-tooltip, .goog-tooltip:hover { display: none !important; }
+      .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+      .goog-te-gadget-simple {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        padding: 5px 16px !important;
+        border-radius: 50px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        cursor: pointer;
+      }
+      .goog-te-gadget-simple span, .goog-te-gadget-simple img { display: none !important; }
+      .goog-te-gadget-icon { display: inline-block !important; width: 18px !important; height: 18px !important; margin-right: 10px !important; border: none !important; }
+      .goog-te-gadget-simple::after { content: "Language 🌐  ▼" !important; font-size: 0.85rem !important; font-weight: 600 !important; color: var(--text-main) !important; white-space: nowrap; }
+      .goog-te-combo { border-radius: 12px !important; padding: 6px 16px !important; }
+    </style>
+
+  </head>
+  <body> <div class="bg-glow"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <header class="container">
+      <div id="google_translate_element"></div>
+
+      <div class="brand-group">
+        <img
+          src="Gemini_Generated_Image_m71qxfm71qxfm71q.jpg"
+          alt="Icon"
+          class="app-icon"
+        />
+        <div class="brand-content">
+          <h1 class="brand-name notranslate">Media Catalog Viewer</h1>
+          <div class="brand-version notranslate">v1.0.0　for Mac（Apple Silicon対応）</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h2>
+          <span class="lang-ja">ディスクの底に埋もれた膨大なファイルを<br />一瞬で見つけ出し 意のままに整理する</span>
+        </h2>
+        <p class="hero-p">
+          <span class="lang-ja">深いフォルダ階層を彷徨うのは、もう終わりにしましょう。<br />画像、動画、ドキュメントを視覚的に一望し、<br />驚きのスピードで仕分けるカタログビューアの登場です！</span>
+        </p>
+
+        <div class="app-preview">
+          <img src="aaa.jpeg" alt="App Interface" />
+        </div>
+
+        <div class="basic-ops-container">
+          <h3 class="basic-ops-title">
+            Intuitive Workspace — 研ぎ澄まされた基本操作
+          </h3>
+          <div class="basic-ops">
+            <div class="op-item">
+              <strong>Fluid D&D</strong>
+              <p>グリッドからツリーへ、ツリーからツリーへ。自在な移動。</p>
+            </div>
+            <div class="op-item">
+              <strong>Direct Edit</strong>
+              <p>ツリー上で直接フォルダ作成。思考を止めない整理。</p>
+            </div>
+            <div class="op-item">
+              <strong>Single Window</strong>
+              <p>ブラウズから管理まで、すべてを一つの窓に集約。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-container">
+          <a href="#" class="btn-download">
+            <span style="display: block">Download for Mac(Coming Soon)</span>
+            <span class="btn-download-sub">for Apple Silicon</span>
+          </a>
+        </div>
+      </section>
+
+      <div class="innovation-teaser">
+        <span class="teaser-sub">冒頭の黒みによる真っ黒なサムネイルは、もう過去のものです。</span>
+        <span class="teaser-main">動画の本質を瞬時に見抜く<br />業界初の「トリプル・エンジン・解析プレビュー」</span>
+      </div>
+
+      <section class="innovation">
+        <span class="badge-rev">業界初・3段階サムネイル解析</span>
+        <h2>10% Duration Snapshot</h2>
+        <div class="detail">
+          本アプリは3つのサムネイルエンジンを搭載。その中でも革新的な「10%解析モード」は、動画全体の　「総再生時間の10%地点」　をピンポイントで特定して描画します。<br />
+          暗転したオープニングやロゴを回避し、その動画の正体を確実に映し出します。
+        </div>
+        <div class="mode-selection">
+          <div class="mode-tag">Normal (高速生成)</div>
+          <div class="mode-tag">Quick (低負荷プレビュー)</div>
+          <div class="mode-tag active">10% Snapshot (解析モード)</div>
+        </div>
+      </section>
+
+      <section class="formats-summary">
+        <h3 style="margin-bottom: 2rem">
+          万能なファイル対応能力 (FFmpeg & QuickLook)
+        </h3>
+
+        <div class="format-group">
+          <span class="format-group-title">Video</span>
+          <div class="format-tags">
+            <span class="format-tag">.mp4</span>
+            <span class="format-tag">.mov</span>
+            <span class="format-tag">.m4v</span>
+            <span class="format-tag">.avi</span>
+            <span class="format-tag">.mkv</span>
+            <span class="format-tag">.wmv</span>
+            <span class="format-tag">.vob</span>
+            <span class="format-tag">.webm</span>
+            <span class="format-tag">.mpg</span>
+            <span class="format-tag">.mpeg</span>
+            <span class="format-tag">.mp2</span>
+            <span class="format-tag">.m2ts</span>
+            <span class="format-tag">.ts</span>
+            <span class="format-tag">.flv</span>
+            <span class="format-tag">.3gp</span>
+            <span class="format-tag">.3g2</span>
+          </div>
+        </div>
+
+        <div class="format-group">
+          <span class="format-group-title">Images</span>
+          <div class="format-tags">
+            <span class="format-tag">.jpg</span>
+            <span class="format-tag">.jpeg</span>
+            <span class="format-tag">.png</span>
+            <span class="format-tag">.gif</span>
+            <span class="format-tag">.bmp</span>
+            <span class="format-tag">.webp</span>
+            <span class="format-tag">.tif</span>
+            <span class="format-tag">.tiff</span>
+          </div>
+        </div>
+
+        <div class="format-group">
+          <span class="format-group-title">Business & Text (QuickLook)</span>
+          <div class="format-tags">
+            <span class="format-tag">PDF</span>
+            <span class="format-tag">Word</span>
+            <span class="format-tag">Excel</span>
+            <span class="format-tag">PowerPoint</span>
+            <span class="format-tag">.txt</span>
+            <span class="format-tag">.rtf</span>
+            <span class="format-tag">.pages</span>
+            <span class="format-tag">.numbers</span>
+            <span class="format-tag">.key</span>
+            <span class="format-tag">...and all QuickLook formats</span>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #ddd; font-size: 0.95rem; color: var(--text-sub); line-height: 1.6;">
+          ※サムネイル作成は上記すべての形式を網羅していますが、実際のファイル再生はmacOSにインストールされている推奨（デフォルト）アプリケーションに依存します。
+        </div>
+      </section>
+
+      <section class="feature-windows">
+        <div class="window-card">
+          <span class="icon">⚙️</span>
+          <h3>Hybrid Engines</h3>
+          <p>
+            FFmpeg、QuickLook、Qtのハイブリッド構造を採用。形式に合わせて最適なエンジンを自動選択することで、多様なメディアファイルの確実なプレビュー表示を実現します。
+          </p>
+        </div>
+        <div class="window-card">
+          <span class="icon">🎨</span>
+          <h3>Finder Tag Sync</h3>
+          <p>
+            macOS標準のタグ情報をリアルタイムに同期。Finderで設定したカラーラベルをそのままアプリ内で反映し、直感的なファイル仕分けと効率的なフォルダ整理をサポートします。
+          </p>
+        </div>
+        <div class="window-card">
+          <span class="icon">🎯</span>
+          <h3>Precision Ops</h3>
+          <p>
+            確実なファイルハンドリングを重視。ドラッグ＆ドロップによる安全な移動、ゴミ箱への破棄、そしてmacOS標準の
+            Cmd+Z によるUndo（取り消し）操作を完備しています。
+          </p>
+        </div>
+        <div class="window-card">
+          <span class="icon">🔍</span>
+          <h3>Immersive View</h3>
+          <p>
+            没入感のあるシングルプレビュー機能を搭載。トラックパッドによる滑らかなズーム操作や自動スライドショーにより、膨大なメディアコレクションを快適に閲覧可能です。
+          </p>
+        </div>
+      </section>
+
+      <section class="detail-specs">
+        <h2>Advanced Features</h2>
+        <div class="spec-item">
+          <h4>高速スキャンエンジン ＆ キャッシュ管理</h4>
+          <p>
+            独自のバックグラウンド走査システムにより、大量のファイルが存在するディレクトリでも軽快に動作します。生成されたサムネイルはローカルに保存され、2回目以降の閲覧はさらにスムーズになります。メモリ消費を抑えた設計により、長時間でも安定して動作します。
+          </p>
+        </div>
+        <div class="spec-item">
+          <h4>「不可視ファイル」の可視化と全領域アクセス</h4>
+          <p>
+            Finderの設定を変更することなく、通常は隠されているシステムファイルやライブラリ内のファイルを瞬時に可視化。通常のメディアファイルと同様にサムネイル化し、シームレスな整理・管理を可能にします。一般的なビューアでは手が届かない領域までを完全に掌握できる、プロフェッショナルのための独自機能です。
+            <strong>*システム保護領域や設定ファイルへの不用意なアクセス・操作は、OSの動作を致命的に損なうリスクを伴います。本機能の利用にあたっては、すべてユーザー自身の判断と責任において行ってください。</strong>
+          </p>
+        </div>
+        <div class="spec-item">
+          <h4>シームレスな「Undo」履歴管理</h4>
+          <p>
+            ファイル操作の履歴を適切に管理。誤ってファイルを移動した場合も、使い慣れた
+            Cmd+Z
+            ショートカットで元の場所へ戻せます。物理的なファイル操作に伴う不安を解消し、安心して整理作業に集中できます。
+          </p>
+        </div>
+        <div class="spec-item">
+          <h4>外部・ネットワークドライブのサポート</h4>
+          <p>
+            Mac本体だけでなく、外付けHDD、SSD、NASなどのネットワークボリュームも標準サポート。サイドバーからワンクリックでボリュームを切り替え可能。ネットワーク上のファイルもメタデータ管理によりストレスなく閲覧できます。
+          </p>
+        </div>
+
+        <div class="btn-container">
+          <a href="#" class="btn-download">
+            <span style="display: block"> Download for Mac(Coming Soon) </span>
+            <span class="btn-download-sub"> for Apple Silicon </span>
+          </a>
+        </div>
+      <section class="disclaimer-area">
+        <div class="container disclaimer-content">
+          <h5>Technical Specifications & Disclaimers</h5>
+          
+          <h5>FFmpegの利用とライセンスについて</h5>
+          <p>
+            本アプリケーションは、メディア解析およびサムネイル生成のエンジンとして独立した外部プログラム <strong>FFmpeg</strong> および <strong>FFprobe</strong> を利用しています。これらは GNU Lesser General Public License (LGPL) または GNU General Public License (GPL) に基づき配布されているフリーソフトウェアであり、本アプリはこれらをバイナリとして呼び出す形態（Mere Aggregation）をとっています。ユーザーは自身の判断において、これらのバイナリを公式サイト等の提供するものと置換・更新する権利を有します。
+          </p>
+  
+          <h5>免責条項 (Limitation of Liability)</h5>
+          <p>
+            本ソフトウェアは「現状のまま（AS IS）」提供されます。開発者は、本ソフトウェアの機能性、正確性、信頼性、および特定の目的への適合性について、明示的か黙示的かを問わず、いかなる保証も行いません。<strong>本ソフトウェアの使用、または使用不能から生じるいかなる直接的・間接的な損害（データの消失、ファイルの破損、システムの不安定化、ハードウェアの故障、業務の中断、またはその他の金銭的損失を含むがこれらに限定されない）について、開発者は一切の責任を負わないものとします。</strong>
+          </p>
+  
+          <h5>操作上の自己責任について</h5>
+          <p>
+            本アプリは、macOSのファイルシステム、Finderタグ、およびシステムフラグに対して直接的な操作を実行します。Undo（取り消し）機能を搭載していますが、物理的なドライブの不備や権限の競合、ネットワーク切断等により、操作の完全な復旧を保証するものではありません。<strong>重要なデータを操作する際は、必ず事前に最新のバックアップを確保してください。</strong>また、通常は秘匿されているシステム領域や不可視ファイルへのアクセス・操作は、OSの動作を致命的に損なうリスクを伴うことを理解し、すべてユーザー自身の判断と責任において行ってください。
+          </p>
+
+          <h5>ファイルの再生・編集について</h5>
+          <p>
+            本アプリは、膨大なメディア資産の高速なブラウジングとカタログ整理に最適化されています。動画の全編再生やドキュメントの編集、高度な操作が必要な場合は、macOSにインストールされている各形式の推奨（デフォルト）アプリケーションが起動します。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2026 Media Catalog Viewer. Produced by <strong class="notranslate">Sonic Boom</strong>.<br>
+        Professional Tools for macOS.
+      </p>
+    </footer>
+    <script type="text/javascript">
+      // 1. 【解決：いきなり英語にしない】
+      // 良かった時のコードの「ロック手法」を採用。
+      // 「日本語から日本語へ翻訳済み」という状態を先に作り、自動翻訳を阻止します。
+      function lockTranslateToJapanese() {
+        document.cookie = "googtrans=/ja/ja; path=/;";
+        document.cookie = "googtrans=/ja/ja; path=/; domain=" + location.hostname;
+      }
+      
+      // ページ読み込み時に実行（ハッシュがない＝手動選択前の場合のみ）
+      if (!window.location.hash) {
+        lockTranslateToJapanese();
+      }
+
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'ja',
+          includedLanguages: 'ja,en,zh-CN,zh-TW,ko,th,fr,de,es',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+
+        // 2. 【解決：日本語選択でオリジナルに戻す】
+        const timer = setInterval(() => {
+          const combo = document.querySelector('.goog-te-combo');
+          if (combo) {
+            clearInterval(timer);
+            combo.addEventListener('change', () => {
+              if (combo.value === 'ja') {
+                // 日本語(ja)が選ばれたら、クッキーを完全に消して「リロード」
+                // これが「翻訳モード」を抜けて「オリジナル」に戻る唯一の確実な方法です
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.href = window.location.origin + window.location.pathname;
+              }
+            });
+          }
+        }, 500);
+      }
+
+      // 翻訳バーによるレイアウト崩れ補正（維持）
+      setInterval(() => {
+        if (document.body.style.top !== "0px" && document.body.style.top !== "") {
+          document.body.style.top = "0px";
+        }
+      }, 100);
+    </script>
+    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
+  </body>
+</html>
